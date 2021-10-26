@@ -1,4 +1,7 @@
-export const getPosts = async (req,res) =>{
+
+const Post = require('../models/Post');
+
+ const getPosts = async (req,res) =>{
     try{
         const posts = await Post.find();
         res.json(posts);
@@ -11,7 +14,7 @@ export const getPosts = async (req,res) =>{
   }
   
 
-export  const postPosts= async (req,res) => {
+  const postPosts= async (req,res) => {
 
     const post=new Post({
         title:req.body.title,
@@ -27,7 +30,7 @@ export  const postPosts= async (req,res) => {
     
     }
   
-export const getPostById = async (req,res) => {
+ const getPostById = async (req,res) => {
     try {
       const post= await Post.findById(req.params.postId);
       res.json(post);
@@ -36,7 +39,7 @@ export const getPostById = async (req,res) => {
     }
   }
 
-export const deletePostByPostId= async (req,res) => {
+ const deletePostByPostId= async (req,res) => {
     try {
       const removedPost= await Post.remove({_id: req.params.postId});
       res.json(removedPost);
@@ -46,7 +49,7 @@ export const deletePostByPostId= async (req,res) => {
   }
 
   
-export const updatePostById = async (req,res)=>{
+ const updatePostById = async (req,res)=>{
     try {
       const updatedPost= await  Post.updateOne(
           { _id:req.params.postId},
@@ -58,3 +61,5 @@ export const updatePostById = async (req,res)=>{
       res.json({message:err});
     }
   }
+
+module.exports = {getPostById, postPosts,getPosts,deletePostByPostId,updatePostById}

@@ -1,26 +1,27 @@
+
+
 const express = require('express');
+const controller = require("../controller/posts")
 const router = express.Router();
 const Post = require('../models/Post');
 
-import {getPostById, postPosts,getPosts,deletePostByPostId,updatePostById} from '../controller/posts.js'
 
 
-getPostById = require('../controller/posts.js')
 
 //GET
-router.get('/',getPosts);
+router.get('/',controller.getPosts);
 
 //POST
-router.post('/',postPosts);
+router.post('/',controller.postPosts);
 
 //GET POST BY ID
-router.get('/:postId',getPostById);
+router.get('/:postId',controller.getPostById);
 
 //Delete
-router.delete('/:postId', deletePostByPostId)
+router.delete('/:postId', controller.deletePostByPostId)
 
 //update
-router.patch('/:postId',updatePostById);
+router.patch('/:postId',controller.updatePostById);
 
 
 module.exports=router;
