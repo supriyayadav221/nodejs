@@ -1,69 +1,27 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
+
+import {getPostById, postPosts,getPosts,deletePostByPostId,updatePostById} from '../controller/posts.js'
+
+
+getPostById = require('../controller/posts.js')
+
 //GET
-router.get('/',async (req,res) =>{
-    try{
-        const posts = await Post.find();
-        res.json(posts);
+router.get('/',getPosts);
 
-    }
-    catch (err)
-    {
-       res.json({message:err});
-    }
-})
 //POST
-router.post('/',async (req,res) => {
-
-const post=new Post({
-    title:req.body.title,
-    description:req.body.description
-});
-
-try{ const savedPost=await  post.save();
-    res.json(savedPost);}
-    catch(err)
-    {
-        res.json({message:err});
-    }
-
-})
+router.post('/',postPosts);
 
 //GET POST BY ID
-router.get('/:postId',async (req,res) => {
-  try {
-    const post= await Post.findById(req.params.postId);
-    res.json(post);
-  } catch (err) {
-    res.json({message:err});
-  }
-});
+router.get('/:postId',getPostById);
 
 //Delete
-router.delete('/:postId', async (req,res) => {
-  try {
-    const removedPost= await Post.remove({_id: req.params.postId});
-    res.json(removedPost);
-  } catch (err) {
-    res.json({message:err});
-  }
-})
+router.delete('/:postId', deletePostByPostId)
 
-//updat
-router.patch('/:postId',async (req,res)=>{
-  try {
-    const updatedPost= await  Post.updateOne(
-        { _id:req.params.postId},
-        { $set: {title: req.body.title}}
-        );
-    res.json(updatedPost);
+//update
+router.patch('/:postId',updatePostById);
 
-  } catch (err) {
-    res.json({message:err});
-  }
-});
 
 module.exports=router;
 
-//mvc pattern
