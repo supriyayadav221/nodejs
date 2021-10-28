@@ -17,11 +17,14 @@ router.post('/',controller.postPosts);
 //GET POST BY ID
 router.get('/:postId',controller.getPostById);
 
+
 //Delete
 router.delete('/:postId', controller.deletePostByPostId)
 
 //update
 router.patch('/:postId',controller.updatePostById);
+
+// router.get('/save',controller.saveToExcel);
 
 
 module.exports=router;
